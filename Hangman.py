@@ -3,6 +3,8 @@ import textwrap
 import os
 import interface
 import re
+import AI
+
 
 wordLength = 0
 letters = []
@@ -23,30 +25,6 @@ def randomWord():
 def drawInterface():
     print(displayWord)
     interface.drawBoard(incorrectLetters, theWord)
-
-def playAIMode():
-
-    global wordLength
-    distLetters = "zjqxkvbpgwyfmculdhrsnioate"
-    for c in range(len(distLetters)):
-      letters.append(distLetters[c])
-
-    while wordLength == 0:
-        try:
-            wordLength = int(input("How many letters"))
-        except:
-            print("Invalid!")
-            wordLength = 0
-    #Get Words
-    words = open("wordlist.txt", "r")
-    possibleWords = re.findall(r'\b[a-zA-Z]{%s}\b' % wordLength, ' '.join(words))
-    print(possibleWords)
-    print("Count:", len(possibleWords))
-
-    #First guess
-    
-
-
 
 def getGuess():
     global count
@@ -142,7 +120,7 @@ def main():
     except IOError:
         print("Oops!, Something went wrong")
     else:
-        playAIMode()
+        AI.playAIMode()
 
 if __name__ == "__main__":
     main()
