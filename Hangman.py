@@ -64,12 +64,12 @@ def checkWin():
         gameOver = True
 
 def playAgain():
+    global theWord, displayWord, usedLetters, incorrectLetters, count, gameOver
     playAgain = ""
     while playAgain != "y" or playAgain != "n":
         playAgain = input("Do you want to play Again? (Y/N) ")
         if playAgain == "y" or playAgain == "Y":
             #clear lists
-            wordList = []
             theWord = ""
             displayWord = []
             usedLetters = []
@@ -81,6 +81,7 @@ def playAgain():
             #restart game
             randomWord()
             game()
+            
         elif playAgain == "n" or playAgain == "N":
             exit()
 
@@ -109,7 +110,7 @@ def game():
 #Start Program
 def main():
     try:
-        f = open('wordlist.txt', "r")
+        f = open('words.txt', "r")
         line = f.readline()
 
         while line:
