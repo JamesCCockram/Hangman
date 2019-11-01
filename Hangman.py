@@ -121,7 +121,12 @@ def main():
     except IOError:
         print("Oops!, Something went wrong")
     else:
-        AI.playAIMode()
+        choice = input("Would you like to play (A)I mode or (P)layer mode? ").lower()
+        if choice == "a":
+            AI.playAIMode()
+        elif choice == "p":
+            game()
+            
 
 if __name__ == "__main__":
     main()
