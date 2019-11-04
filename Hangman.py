@@ -5,7 +5,6 @@ import interface
 import re
 import AI
 
-
 wordLength = 0
 letters = []
 wordList = []
@@ -23,7 +22,7 @@ def randomWord():
     theWord = wordList[index]
 
 def drawInterface():
-    print(displayWord)
+    print(" ".join(displayWord))
     interface.drawBoard(incorrectLetters, theWord)
 
 def getGuess():
@@ -106,7 +105,6 @@ def game():
 
 
 
-
 #Start Program
 def main():
     try:
@@ -121,12 +119,12 @@ def main():
     except IOError:
         print("Oops!, Something went wrong")
     else:
-        choice = input("Would you like to play (A)I mode or (P)layer mode? ").lower()
-        if choice == "a":
-            AI.playAIMode()
-        elif choice == "p":
-            game()
-            
-
+        choice = ""
+        while choice != "q":
+            choice = input("Would you like to play (A)I mode or (P)layer mode? ").lower()
+            if choice == "a":
+                AI.playAIMode()
+            elif choice == "p":
+                game()
 if __name__ == "__main__":
     main()

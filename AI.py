@@ -31,9 +31,10 @@ def playAIMode():
     possibleWords = re.findall(r'\b[a-zA-Z]{%s}\b' % wordLength, ' '.join(words))
 
     #First guess
-    while guess < 7:
+    while guess < 4:
         getGuess()
         guess += 1
+    #New Guess
 
 
 
