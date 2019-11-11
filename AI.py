@@ -3,14 +3,12 @@ import re
 letters = []
 wordLength = 0
 wordLengthDisplay = []
+guess = 0
+correctLetters = 0
+distLetters = "zjqxkvbpgwyfmculdhrsnioate"
 
 def playAIMode():
-    global wordLength
-    global wordLengthDisplay
-    guess = 0
-    wordLengthDisplay = []
-    distLetters = "zjqxkvbpgwyfmculdhrsnioate"
-
+    global wordLength, wordLengthDisplay, guess, distLetters
 
     for c in range(len(distLetters)):
       letters.append(distLetters[c])
@@ -26,23 +24,41 @@ def playAIMode():
     for i in range(0, wordLength):
         wordLengthDisplay.append("_")
     print(wordLengthDisplay)
+
     #Get Words
     words = open("words.txt", "r")
     possibleWords = re.findall(r'\b[a-zA-Z]{%s}\b' % wordLength, ' '.join(words))
 
     #First guess
-    while guess < 7:
+    while correctLetters < 3 and guess < 7:
         getGuess()
-        guess += 1
+    while correctLetters > 2 and guess <= 7:
+        #Start Guessing Words
+        guessedLetters = ''.join(wordLengthDisplay)
+        guessedLetters = guessedLetters.replace("_", "")
+        filterWords(possibleWords, guessedLetters)
+        input("test")
+        
 
+def filterWords(possibleWords, guessedLetters):
+    regex = re.compile(".*".join(guessedLetters), re.IGNORECASE)
+    filtered_words = [word for word in possibleWords if regex.search(word)]
+    print(filtered_words)
 
 def getGuess():
-    global wordLengthDisplay
+    global wordLengthDisplay, guess, correctLetters
+
     letter = letters.pop()
     AIguess = int(input("How many times does " + letter + " occur in your word?"))
     
-    while AIguess > 0:
-        position = (int(input("What Position does " + letter + " occur?")) - 1)
-        wordLengthDisplay[position] = letter
-        AIguess -= 1
-        print(wordLengthDisplay)
+    if AIguess == 0:
+        guess += 1
+    else:
+        while AIguess >= 1:
+            position = (int(input("What Position does " + letter + " occur?")) - 1)
+            wordLengthDisplay[position] = letter
+            AIguess -= 1
+            correctLetters += 1
+            print(correctLetters)
+            print(wordLengthDisplay)
+            print("Correct: ", correctLetters)
