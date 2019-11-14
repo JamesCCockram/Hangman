@@ -7,6 +7,7 @@ guess = 0
 correctLetters = 0
 distLetters = "zjqxkvbpgwyfmculdhrsnioate"
 underscoreCount = 0
+filtered_words = []
 
 def playAIMode():
     global wordLength, wordLengthDisplay, guess, distLetters
@@ -33,7 +34,7 @@ def playAIMode():
     possibleWords = list(dict.fromkeys(possibleWords))
 
     #First guess
-    while underscoreCount > 2 and guess < 7:
+    while underscoreCount > 1 and guess < 7:
         getGuess()
         underscoreCount = wordLengthDisplay.count("_")
     while underscoreCount <= 1 and guess <= 7:
@@ -46,8 +47,14 @@ def playAIMode():
         
 
 def filterWords(possibleWords, guessedLetters):
+    global filtered_words
     regex = re.compile(".*".join(guessedLetters), re.IGNORECASE)
-    filtered_words = [word for word in possibleWords if regex.search(word)]
+    firstFilter = [word for word in possibleWords if regex.search(word)]
+    
+    for i in range(len(firstFilter)):
+        filtered_words.append(list(firstFilter[i]))
+        i += 1
+
     print(filtered_words)
 
 def getGuess():
