@@ -6,6 +6,7 @@ wordLengthDisplay = []
 guess = 0
 correctLetters = 0
 distLetters = "zjqxkvbpgwyfmculdhrsnioate"
+underscoreCount = 0
 
 def playAIMode():
     global wordLength, wordLengthDisplay, guess, distLetters
@@ -24,20 +25,24 @@ def playAIMode():
     for i in range(0, wordLength):
         wordLengthDisplay.append("_")
     print(wordLengthDisplay)
+    underscoreCount = wordLengthDisplay.count("_")
 
     #Get Words
     words = open("words.txt", "r")
     possibleWords = re.findall(r'\b[a-zA-Z]{%s}\b' % wordLength, ' '.join(words))
+    possibleWords = list(dict.fromkeys(possibleWords))
 
     #First guess
-    while correctLetters < 3 and guess < 7:
+    while underscoreCount > 2 and guess < 7:
         getGuess()
-    while correctLetters > 2 and guess <= 7:
+        underscoreCount = wordLengthDisplay.count("_")
+    while underscoreCount <= 1 and guess <= 7:
         #Start Guessing Words
         guessedLetters = ''.join(wordLengthDisplay)
         guessedLetters = guessedLetters.replace("_", "")
         filterWords(possibleWords, guessedLetters)
-        input("test")
+        input("")
+
         
 
 def filterWords(possibleWords, guessedLetters):
