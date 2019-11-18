@@ -16,16 +16,19 @@ count = 0
 gameOver = False
 
 def randomWord():
+    #Get a random word
     global theWord
     #Select a random word
     index = random.randint(0, len(wordList) - 1)
     theWord = wordList[index]
 
 def drawInterface():
+    #uses the Interface module to draw an interface
     print(" ".join(displayWord))
     interface.drawBoard(incorrectLetters, theWord)
 
 def getGuess():
+    #get guess by getting the user to enter a letter, then compare it used letters to make sure the letter is valid, if valid compare it with the random word generated earlier
     global count
     global usedLetters
     guess = str(input("Guess: ")).lower()
@@ -63,6 +66,7 @@ def checkWin():
         gameOver = True
 
 def playAgain():
+    #reset the game to play again
     global theWord, displayWord, usedLetters, incorrectLetters, count, gameOver
     playAgain = ""
     while playAgain != "y" or playAgain != "n":
@@ -85,6 +89,7 @@ def playAgain():
             exit()
 
 def game():
+    #Start the game
     randomWord()
     count = len(incorrectLetters)
     #Build the display text

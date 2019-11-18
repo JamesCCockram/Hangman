@@ -10,6 +10,7 @@ underscoreCount = 0
 filtered_words = []
 
 def playAIMode():
+    #Start guessing Letters
     global wordLength, wordLengthDisplay, guess, distLetters
 
     for c in range(len(distLetters)):
@@ -61,6 +62,7 @@ def playAIMode():
         
 
 def filterWords(possibleWords, guessedLetters):
+    #remove unneeded words
     global filtered_words, gameOver
     regex = re.compile(".*".join(guessedLetters), re.IGNORECASE)
     firstFilter = [word for word in possibleWords if regex.search(word)]
@@ -71,11 +73,14 @@ def filterWords(possibleWords, guessedLetters):
     print(filtered_words)
 
 def getGuess():
+    #Get a guess from the user
     global wordLengthDisplay, guess, correctLetters
 
+    #Ask the user how many times a letter appears in the word
     letter = letters.pop()
     AIguess = int(input("How many times does " + letter + " occur in your word?"))
     
+    #Check if it is in the word or not, if it isn't add one to guess. if it is ask the user where it appears and remove one from AI Guess keep doing this until AIGuess < 1
     if AIguess == 0:
         guess += 1
     else:
