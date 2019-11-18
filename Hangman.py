@@ -86,7 +86,6 @@ def playAgain():
 
 def game():
     randomWord()
-    print(theWord)
     count = len(incorrectLetters)
     #Build the display text
     for i in range(0, len(theWord)):
@@ -97,6 +96,7 @@ def game():
             drawInterface()
             getGuess()
         else:
+            print("The word was:", theWord)
             playAgain()
 
 

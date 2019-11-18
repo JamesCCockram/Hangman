@@ -33,28 +33,41 @@ def playAIMode():
     possibleWords = re.findall(r'\b[a-zA-Z]{%s}\b' % wordLength, ' '.join(words))
     possibleWords = list(dict.fromkeys(possibleWords))
 
+    gameOver = False
     #First guess
-    while underscoreCount > 1 and guess < 7:
-        getGuess()
-        underscoreCount = wordLengthDisplay.count("_")
-    while underscoreCount <= 1 and guess <= 7:
-        #Start Guessing Words
-        guessedLetters = ''.join(wordLengthDisplay)
-        guessedLetters = guessedLetters.replace("_", "")
-        filterWords(possibleWords, guessedLetters)
-        input("")
+    while gameOver != True:
+        if underscoreCount > 1 and guess < 7:
+            getGuess()
+            underscoreCount = wordLengthDisplay.count("_")
+        elif underscoreCount <= 1 and guess <= 7:
+            #Start Guessing Words
+            guessedLetters = ''.join(wordLengthDisplay)
+            guessedLetters = guessedLetters.replace("_", "")
+            filterWords(possibleWords, guessedLetters)
+            correct = ''
+            while correct != "y":
+                word = filtered_words.pop()
+                correct = input("Is " + word +" your word? ").lower()
+                guess += 1
+
+                if correct == "y":
+                    print("Game Over!, Thanks for Playing")
+                    underscoreCount = wordLengthDisplay.count("_")
+                    gameOver = True
+
+
+
 
         
 
 def filterWords(possibleWords, guessedLetters):
-    global filtered_words
+    global filtered_words, gameOver
     regex = re.compile(".*".join(guessedLetters), re.IGNORECASE)
     firstFilter = [word for word in possibleWords if regex.search(word)]
     
     for i in range(len(firstFilter)):
-        filtered_words.append(list(firstFilter[i]))
+        filtered_words.append(firstFilter[i])
         i += 1
-
     print(filtered_words)
 
 def getGuess():
