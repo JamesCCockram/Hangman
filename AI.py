@@ -55,10 +55,6 @@ def playAIMode():
                     print("Game Over!, Thanks for Playing")
                     underscoreCount = wordLengthDisplay.count("_")
                     gameOver = True
-
-
-
-
         
 
 def filterWords(possibleWords, guessedLetters):
